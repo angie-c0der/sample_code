@@ -1,47 +1,27 @@
-# with open('ChatAnaghaAnne.txt', encoding="utf8") as f:
-    # for line in  
-    # lines = f.readline()
-    # print(line)
-    # print("hi")
-from contextlib import redirect_stdout
-file1 = open('chat_2.txt', encoding='utf8')
-count = 0
-line1 = file1.readline()
-with open('oout.txt', 'w', encoding="utf8") as f:
 
-    for line in file1:
-        date_list = line.split(',')
-    # print(date_list,len(date_list))
-    
-        date = date_list[0]
-    # print(date)
-    
-        time_list = date_list[1].split('-')
-        time = time_list[0]
-        contact_text = time_list[1].split(':')
-        contact = contact_text[0]
-        message = contact_text[1]  
-        
-        with redirect_stdout(f):
-            print(date, time, contact, message, file=f)
-    f.close()  
-    # file_1 = open('output.txt', 'w')
-    # file_1.write(print(date, time, contact, message))
-    # print(date, time, contact, message)
-# Closing file
-# file_1.close()
-  
-# Checking if the data is
-# written to file or not
-# file_1 = open('output.txt', 'r')
-# print(file_1.read())
-# file_1.close()
+import csv
+from csv import writer
+# Open the input file in read mode
+with open('output.csv', 'w', newline="", encoding="utf8") as output_file:
+    #opening the output csv file write mode
+    thewriter=writer(output_file)
+    heading =["date","time","contact","message"] #defining a header
 
-# with open('out.txt', 'w', encoding="utf8") as f:
-    # with redirect_stdout(f):
-        # print(date, time, contact, message)
-# f.close()
+    thewriter.writerow(heading)
+    with open('chat_2.txt', 'r', encoding="utf8") as input_file:
+        chumma=input_file.readline() #skip reading the first line
+        for line in input_file:
+            date_list = line.split(',') #splitting line with ','
+            print(date_list)
+            date = date_list[0].strip()  #obtaining date from the 0th element of date_list
+            time_list = date_list[1].split('-')
+            time = time_list[0].strip()  #obtaining time from the 0th element of time_list
+            contact_text = time_list[1].split(':')
+            contact = contact_text[0].strip()
+            messagee = contact_text[1].strip() #obtaining time from the 0th element of time_list
+            print(date,time,contact,messagee)  
+            list1=[date, time, contact, messagee]  #declaring a list with the required elements
+            thewriter.writerow(list1) #writing the contents of the list1 onto the output.csv file
+    output_file.close()
+input_file.close()
 
-file_1 = open('out.txt', 'r')
-print(file_1.read())
-file_1.close()
